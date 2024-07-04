@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    public List<Transform> enemyStage;
+    [SerializeField] public List<Transform> enemyStage;
 
     [SerializeField] private PlayeMovement _playeMovement;
 
@@ -18,6 +18,14 @@ public class StageManager : MonoBehaviour
             _stageIsClear = true;
             enemyStage.RemoveAt(0);
             _playeMovement.ReadyToMove();
+        }
+    }
+
+    private void InitializeObjects()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            enemyStage.Add(transform.GetChild(i));
         }
     }
 }
