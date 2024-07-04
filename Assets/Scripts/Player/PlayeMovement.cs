@@ -6,10 +6,11 @@ using UnityEngine.AI;
 
 public class PlayeMovement : MonoBehaviour
 {
+    [HideInInspector] public List<Vector3> wayPoints;
+    
     [SerializeField] private GameObject _wayPointObj;
     
-    public List<Vector3> _wayPoints;
-    public bool _canMove;
+    private bool _canMove;
     
     //components
     private NavMeshAgent _agent;
@@ -30,11 +31,7 @@ public class PlayeMovement : MonoBehaviour
         {
             if (_canMove) GoToNextWayPoint();
         }
-
-        if (_agent.hasPath ==false)
-        {
-            _canMove = true;
-        }
+        
     }
 
     private void InitializeComponents()
@@ -42,14 +39,19 @@ public class PlayeMovement : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         for (int i = 0; i < _wayPointObj.transform.childCount; i++)
         {
-            _wayPoints.Add(_wayPointObj.transform.GetChild(i).transform.position);
+            wayPoints.Add(_wayPointObj.transform.GetChild(i).transform.position);
         }
     }
 
     private void GoToNextWayPoint()
     {
-        _agent.SetDestination(_wayPoints[0]);
-        _wayPoints.RemoveAt(0);
+        _agent.SetDestination(wayPoints[0]);
+        wayPoints.RemoveAt(0);
         _canMove = false;
+    }
+
+    public void ReadyToMove()
+    {
+        _canMove = true;
     }
 }
