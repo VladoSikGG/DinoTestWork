@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Shooting : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class Shooting : MonoBehaviour
     [SerializeField] private bool _autoExpand;
     [SerializeField] private Transform _containerBullet;
     [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Transform _spawnBullet;
+
+    private PlayeMovement _playerMove;
 
     private Camera _camera;
     private ObjectPool<Bullet> _pool;
@@ -23,6 +27,7 @@ public class Shooting : MonoBehaviour
     private void Awake()
     {
         _camera = Camera.main;
+        _playerMove = GetComponent<PlayeMovement>();
     }
 
     private void Start()
@@ -33,24 +38,11 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(_camera.transform.position, ray.direction, Color.green, _rayDistance);
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && _playerMove.IsMoving == false)
         {
             Bullet bullet = CreateBullet();
             
             bullet.Launch(GetEndPoint());
-            // if (Physics.Raycast(ray, out RaycastHit hit))
-            // {
-            //     IDamagable damagable = hit.collider.GetComponentInParent<IDamagable>();
-            //
-            //     if (damagable != null)
-            //     {
-            //         Vector3 forceDirection = (hit.point - _camera.transform.position).normalized;
-            //         forceDirection.y = 0;
-            //         damagable.TakeDamage(forceDirection * _force, hit.point);
-            //     }
-            // }
         }
     }
 
@@ -58,13 +50,13 @@ public class Shooting : MonoBehaviour
     {
         Vector3 endPoint;
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(_camera.transform.position, ray.direction, out RaycastHit hit))
         {
             endPoint = hit.point;
         }
         else
         {
-            endPoint = _camera.transform.position + ray.GetPoint(_rayDistance);
+            endPoint = ray.GetPoint(_rayDistance);
         }
         
         Debug.Log(endPoint);
@@ -73,7 +65,7 @@ public class Shooting : MonoBehaviour
     private Bullet CreateBullet()
     {
         var bullet = _pool.GetFreeElement();
-        bullet.transform.position = transform.position + new Vector3(0, _spawnOffsetY, 0);
+        bullet.transform.position = _spawnBullet.position;
         return bullet;
     }
 }

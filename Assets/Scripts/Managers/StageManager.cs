@@ -11,13 +11,20 @@ public class StageManager : MonoBehaviour
 
     private bool _stageIsClear;
 
+    private void Start()
+    {
+        InitializeObjects();
+    }
+
     private void Update()
     {
+        if (enemyStage.Count <= 0) return;
+        
         if (enemyStage[0].childCount <= 0)
         {
             _stageIsClear = true;
             enemyStage.RemoveAt(0);
-            _playeMovement.ReadyToMove();
+            _playeMovement.GoToNextWayPoint();
         }
     }
 
