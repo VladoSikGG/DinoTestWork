@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,7 +11,6 @@ public class PlayeMovement : MonoBehaviour
 
     private bool _startGame, _isMoving;
     
-    //components
     private Animator _animator;
     private NavMeshAgent _agent;
 

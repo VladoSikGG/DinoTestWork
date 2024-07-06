@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -16,7 +14,7 @@ public class ObjectPool<T> where T:MonoBehaviour
     {
         _prefab = prefab;
         _container = container;
-        this.CreatePool(count);
+        CreatePool(count);
     }
 
     private void CreatePool(int count)

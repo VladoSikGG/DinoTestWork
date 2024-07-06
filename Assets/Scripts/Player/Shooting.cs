@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Shooting : MonoBehaviour
 {
@@ -58,8 +53,6 @@ public class Shooting : MonoBehaviour
         {
             endPoint = ray.GetPoint(_rayDistance);
         }
-        
-        Debug.Log(endPoint);
         return endPoint;
     }
     private Bullet CreateBullet()
