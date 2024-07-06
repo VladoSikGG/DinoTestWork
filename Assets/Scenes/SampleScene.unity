@@ -1868,7 +1868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 1037324401}
   _raagdollDeath: {fileID: 1037324400}
-  _health: 0
+  _health: 5
 --- !u!114 &1037324400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2495,9 +2495,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d2098de1e234a7c9b83a475ddd8504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _forcePullEnemy: 50
   _damage: 0
-  _rayDistance: 100
+  _rayDistance: 35
+  _spawnOffsetY: 0.5
   _bulletCount: 5
   _autoExpand: 1
   _containerBullet: {fileID: 628524791}
