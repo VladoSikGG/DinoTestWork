@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField] private EnemyView _view;
     [SerializeField] private RaagdollDeath _raagdollDeath;
+    [SerializeField] private int _health;
 
     private void Awake()
     {
@@ -14,16 +15,16 @@ public class Enemy : MonoBehaviour, IDamagable
         _raagdollDeath.Initialize();
     }
 
-    private void Kill()
-    {
-        EnableRagdollBehaviour();
-        
-    }
-
-    public void TakeDamage(Vector3 force, Vector3 hitPoint)
+    private void Kill(Vector3 force, Vector3 hitPoint)
     {
         EnableRagdollBehaviour();
         _raagdollDeath.Hit(force, hitPoint);
+    }
+
+    public void TakeDamage(Vector3 force, Vector3 hitPoint, int damage)
+    {
+         _health -= damage;
+         if (_health <= 0) Kill(force, hitPoint);
     }
 
     private void EnableRagdollBehaviour()
