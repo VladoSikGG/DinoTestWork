@@ -14,7 +14,12 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
-        Invoke("Disable", _lifeTime);
+        StartCoroutine(LifeTime());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(LifeTime());
     }
 
     public void Launch(Vector3 endPoint)
@@ -40,4 +45,10 @@ public class Bullet : MonoBehaviour
     }
 
     private void Disable() => gameObject.SetActive(false);
+
+    private IEnumerator LifeTime()
+    {
+        yield return new WaitForSeconds(_lifeTime);
+        Disable();
+    }
 }

@@ -18,6 +18,7 @@ public class PlayeMovement : MonoBehaviour
     private NavMeshAgent _agent;
 
     public bool IsMoving => _isMoving;
+    
     private void Awake()
     {
         InitializeComponents();
@@ -27,6 +28,7 @@ public class PlayeMovement : MonoBehaviour
     {
         _startGame = true;
         GetComponent<Shooting>().enabled = false;
+        GetComponent<Rotation>().enabled = false;
     }
 
     private void Update()
@@ -37,6 +39,7 @@ public class PlayeMovement : MonoBehaviour
             {
                 GoToNextWayPoint();
                 GetComponent<Shooting>().enabled = true;
+                GetComponent<Rotation>().enabled = true;
             }
         }
 
