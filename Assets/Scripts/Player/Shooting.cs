@@ -3,7 +3,6 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     [Header("Setup Force")]
-    [SerializeField, Range(1,100)] private int _damage;
     [SerializeField, Range(1, 1000)] private float _rayDistance;
 
     [Header("Pool Setup")]
